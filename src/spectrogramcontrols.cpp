@@ -45,15 +45,22 @@ SpectrogramControls::SpectrogramControls(const QString & title, QWidget * parent
     layout->addRow(new QLabel()); // TODO: find a better way to add an empty row?
     layout->addRow(new QLabel(tr("<b>Spectrogram</b>")));
 
-    fftSizeSlider = new QSlider(Qt::Horizontal, widget);
-    fftSizeSlider->setRange(4, 16);
-    fftSizeSlider->setPageStep(1);
+    // fftSizeSlider = new QSlider(Qt::Horizontal, widget);
+    // fftSizeSlider->setRange(4, 16);
+    // fftSizeSlider->setPageStep(1);
+
+    fftSizeSlider = new QSpinBox();
+    fftSizeSlider->setMinimum(4);
+    fftSizeSlider->setMaximum(16);
 
     layout->addRow(new QLabel(tr("FFT size:")), fftSizeSlider);
 
-    zoomLevelSlider = new QSlider(Qt::Horizontal, widget);
-    zoomLevelSlider->setRange(-6, 10);
-    zoomLevelSlider->setPageStep(1);
+    // zoomLevelSlider = new QSlider(Qt::Horizontal, widget);
+    // zoomLevelSlider->setRange(-6, 10);
+    // zoomLevelSlider->setPageStep(1);
+    zoomLevelSlider = new QSpinBox();
+    zoomLevelSlider->setMinimum(-6);
+    zoomLevelSlider->setMaximum(10);
 
     layout->addRow(new QLabel(tr("Zoom:")), zoomLevelSlider);
 
@@ -109,8 +116,9 @@ SpectrogramControls::SpectrogramControls(const QString & title, QWidget * parent
     widget->setLayout(layout);
     setWidget(widget);
 
-    connect(fftSizeSlider, &QSlider::valueChanged, this, &SpectrogramControls::fftSizeChanged);
-    connect(zoomLevelSlider, &QSlider::valueChanged, this, &SpectrogramControls::zoomLevelChanged);
+    // connect(fftSizeSlider, &QSlider::valueChanged, this, &SpectrogramControls::fftSizeChanged);
+    connect(fftSizeSlider, QOverload<int>::of(&QSpinBox::valueChanged), this, &SpectrogramControls::fftSizeChanged);
+    connect(zoomLevelSlider, QOverload<int>::of(&QSpinBox::valueChanged), this, &SpectrogramControls::zoomLevelChanged);
     connect(fileOpenButton, &QPushButton::clicked, this, &SpectrogramControls::fileOpenButtonClicked);
     connect(cursorsCheckBox, &QCheckBox::stateChanged, this, &SpectrogramControls::cursorsStateChanged);
     connect(powerMinSlider, &QSlider::valueChanged, this, &SpectrogramControls::powerMinChanged);
