@@ -33,7 +33,7 @@ void TunerTransform::work(void *input, void *output, int count, size_t sampleid)
 
     // Mix down
     nco_crcf mix = nco_crcf_create(LIQUID_NCO);
-    nco_crcf_set_phase(mix, fmodf(frequency * sampleid, Tau));
+    nco_crcf_set_phase(mix, fmod(static_cast<double>(frequency) * sampleid, Tau));
     nco_crcf_set_frequency(mix, frequency);
     nco_crcf_mix_block_down(mix,
                             static_cast<std::complex<float>*>(input),
