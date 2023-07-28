@@ -39,6 +39,8 @@ public:
     void setCentre(int centre);
     void setDeviation(int dev);
     void setHeight(int height);
+    void setFrequencyOffset(double offset);
+    double frequencyOffset();
 
 public slots:
     void cursorMoved();
@@ -54,4 +56,5 @@ private:
     Cursor *maxCursor;
     int _deviation;
     int height;
+    double _offset;
 };

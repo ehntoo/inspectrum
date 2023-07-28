@@ -56,6 +56,7 @@ public slots:
     void setFFTAndZoom(int fftSize, int zoomLevel);
     void setPowerMin(int power);
     void setPowerMax(int power);
+    void setTunerOffset(double offset);
 
 protected:
     void mouseMoveEvent(QMouseEvent *event) override;

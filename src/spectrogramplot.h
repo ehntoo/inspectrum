@@ -64,6 +64,7 @@ public slots:
     void setZoomLevel(int zoom);
     void setSkip(int skip);
     void tunerMoved();
+    void setTunerOffset(double offset);
 
 private:
     const int linesPerGraduation = 50;

@@ -39,6 +39,7 @@ public:
 signals:
     void fftOrZoomChanged(int fftSize, int zoomLevel);
     void openFile(QString fileName);
+    void tunerOffsetFrequencyChanged(double tunerOffset);
 
 public slots:
     void timeSelectionChanged(float time);
@@ -53,6 +54,7 @@ private slots:
     void powerMaxChanged(int value);
     void fileOpenButtonClicked();
     void cursorsStateChanged(int state);
+    void tunerOffsetChanged(double value);
 
 private:
     QWidget *widget;
@@ -71,6 +73,7 @@ public:
     QSlider *powerMinSlider;
     QCheckBox *cursorsCheckBox;
     QSpinBox *cursorSymbolsSpinBox;
+    QDoubleSpinBox *tunerOffsetSpinBox;
     QLabel *rateLabel;
     QLabel *periodLabel;
     QLabel *symbolRateLabel;

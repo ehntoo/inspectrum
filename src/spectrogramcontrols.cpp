@@ -51,7 +51,7 @@ SpectrogramControls::SpectrogramControls(const QString & title, QWidget * parent
 
     fftSizeSlider = new QSpinBox();
     fftSizeSlider->setMinimum(4);
-    fftSizeSlider->setMaximum(16);
+    fftSizeSlider->setMaximum(12);
 
     layout->addRow(new QLabel(tr("FFT size:")), fftSizeSlider);
 
@@ -100,6 +100,16 @@ SpectrogramControls::SpectrogramControls(const QString & title, QWidget * parent
     symbolPeriodLabel = new QLabel();
     layout->addRow(new QLabel(tr("Symbol period:")), symbolPeriodLabel);
 
+    // Tuner selection settings
+    layout->addRow(new QLabel()); // TODO: find a better way to add an empty row?
+    layout->addRow(new QLabel(tr("<b>Tuner</b>")));
+
+    tunerOffsetSpinBox = new QDoubleSpinBox();
+    tunerOffsetSpinBox->setMinimum(-99.99);
+    tunerOffsetSpinBox->setMaximum(10e9);
+    tunerOffsetSpinBox->setSingleStep(1e6);
+    layout->addRow(new QLabel(tr("Frequency:")), tunerOffsetSpinBox);
+
     // SigMF selection settings
     layout->addRow(new QLabel()); // TODO: find a better way to add an empty row?
     layout->addRow(new QLabel(tr("<b>SigMF Control</b>")));
@@ -119,10 +129,16 @@ SpectrogramControls::SpectrogramControls(const QString & title, QWidget * parent
     // connect(fftSizeSlider, &QSlider::valueChanged, this, &SpectrogramControls::fftSizeChanged);
     connect(fftSizeSlider, QOverload<int>::of(&QSpinBox::valueChanged), this, &SpectrogramControls::fftSizeChanged);
     connect(zoomLevelSlider, QOverload<int>::of(&QSpinBox::valueChanged), this, &SpectrogramControls::zoomLevelChanged);
+    connect(tunerOffsetSpinBox, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &SpectrogramControls::tunerOffsetChanged);
     connect(fileOpenButton, &QPushButton::clicked, this, &SpectrogramControls::fileOpenButtonClicked);
     connect(cursorsCheckBox, &QCheckBox::stateChanged, this, &SpectrogramControls::cursorsStateChanged);
     connect(powerMinSlider, &QSlider::valueChanged, this, &SpectrogramControls::powerMinChanged);
     connect(powerMaxSlider, &QSlider::valueChanged, this, &SpectrogramControls::powerMaxChanged);
+}
+
+void SpectrogramControls::tunerOffsetChanged(double value)
+{
+    tunerOffsetFrequencyChanged(value);
 }
 
 void SpectrogramControls::clearCursorLabels()

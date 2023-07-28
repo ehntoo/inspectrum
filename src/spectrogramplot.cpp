@@ -329,8 +329,18 @@ int SpectrogramPlot::getStride()
 
 float SpectrogramPlot::getTunerPhaseInc()
 {
-    auto freq = 0.5f - tuner.centre() / (float)fftSize;
+    auto centerFreq = inputSource->getFrequency();
+    auto sampleRate = inputSource->rate();
+    auto targetFreq = tuner.frequencyOffset();
+    auto freq = (targetFreq - centerFreq) / sampleRate;
+    // auto freq = 0.5f - tuner.centre() / (float)fftSize;
+    // freq += tuner.frequencyOffset();
     return freq * Tau;
+}
+
+void SpectrogramPlot::setTunerOffset(double offset)
+{
+    tuner.setFrequencyOffset(offset);
 }
 
 std::vector<float> SpectrogramPlot::getTunerTaps()

@@ -463,6 +463,11 @@ void PlotView::setFFTAndZoom(int size, int zoom)
         verticalScrollBar()->setValue((int )(oldPlotCenter * plotsHeight() - viewport()->height() / 2.0 + 0.5f));
 }
 
+void PlotView::setTunerOffset(double offset)
+{
+    spectrogramPlot->setTunerOffset(offset);
+}
+
 void PlotView::setPowerMin(int power)
 {
     powerMin = power;

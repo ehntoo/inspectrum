@@ -39,6 +39,11 @@ int Tuner::centre()
     return cfCursor->pos();
 }
 
+double Tuner::frequencyOffset()
+{
+    return _offset;
+}
+
 void Tuner::cursorMoved()
 {
     Cursor *sender = static_cast<Cursor*>(QObject::sender());
@@ -103,6 +108,12 @@ void Tuner::setCentre(int centre)
 {
     cfCursor->setPos(centre);
     updateCursors();
+}
+
+void Tuner::setFrequencyOffset(double offset)
+{
+    _offset = offset;
+    emit tunerMoved();
 }
 
 void Tuner::setDeviation(int dev)
